@@ -1,5 +1,8 @@
+org\libraryshoponline\library\controller\Pannier$2.class
 org\libraryshoponline\library\dto\Book.class
-org\libraryshoponline\library\dto\Library.class
+org\libraryshoponline\library\controller\Pannier$1.class
 org\libraryshoponline\library\controller\AfficheListLivre$1.class
+org\libraryshoponline\library\dto\Library.class
 org\libraryshoponline\library\controller\AfficheListLivre.class
 org\libraryshoponline\library\controller\Pannier.class
+org\libraryshoponline\library\dto\Basket.class

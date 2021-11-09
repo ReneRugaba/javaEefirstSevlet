@@ -35,10 +35,12 @@ public class AfficheListLivre extends HttpServlet {
         final String title=req.getParameter("title");
         final String dateAjout=req.getParameter("dateAjout");
         final String description=req.getParameter("description");
+        final Float amount =Float.parseFloat(req.getParameter("prix"));
         Book book = new Book(){{
             setTitle(title);
             setDateAjout(dateAjout);
             setDescription(description);
+            setAmount(amount);
         }};
 
         boolean addBook = (new Library()).addBookLibrary(book);

@@ -5,6 +5,15 @@ public class Book {
     private String title;
     private String dateAjout;
     private String description;
+    private float amount;
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
+    }
 
     public String getTitle() {
         return title;

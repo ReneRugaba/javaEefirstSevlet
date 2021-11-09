@@ -1,5 +1,6 @@
 package org.libraryshoponline.library.controller;
 
+import org.libraryshoponline.library.dto.Basket;
 import org.libraryshoponline.library.dto.Book;
 import org.libraryshoponline.library.dto.Library;
 
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "pannier",urlPatterns = {"/pannier"})
 public class Pannier extends HttpServlet {
@@ -19,10 +22,31 @@ public class Pannier extends HttpServlet {
         PrintWriter out = resp.getWriter();
         resp.setContentType("text/html");
         HttpSession session = req.getSession();
-        Book book = (new Library()).getBookInList(Integer.parseInt(req.getParameter("id")));
-        session.setAttribute("title",book.getTitle());
-        out.print("<html><body>Titre du livre en cours d'achat est "+book.getTitle()+"</br>");
-        out.print("le numero de session est: "+session.getId()+"</br>");
+        final Book book = (new Library()).getBookInList(Integer.parseInt(req.getParameter("id")));
+        Basket basket=(Basket) session.getAttribute("basket");
+        if(basket==null){
+            final List<Book> bookList=new ArrayList<Book>(){{
+                add(book);
+            }};
+            Basket newBasket = new Basket(){{
+               setBasket(bookList);
+               setAmount(book.getAmount());
+            }};
+            session.setAttribute("basket",newBasket);
+        }else {
+            basket.getBasket().add(book);
+            basket.setAmount(basket.getAmount()+ book.getAmount());
+            session.setAttribute("basket",basket);
+        }
+        out.print("<html><body><h2>Pannier:</h2><ol>");
+        for (Book b:((Basket)session.getAttribute("basket")).getBasket()){
+            out.print("<li>"+b.getTitle()+" : "+b.getAmount()+" euros</li>");
+        }
+        out.print("</ol></br>");
+        out.print("<h1>Montant à payer "+((Basket)session.getAttribute("basket")).getAmount()+" euros</h1>");
+
+        out.print("le numero de session est: "+session.getId()+"</br>" +
+                "<a href='books'>Continuer achat!</a></br>");
         out.print("<form action='pannier' method='POST'>" +
                 "<input type='texte' name='cb'/>" +
                 "<button type='submit'>Payer</button></form>");
