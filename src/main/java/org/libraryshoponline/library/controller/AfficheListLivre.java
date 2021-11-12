@@ -1,6 +1,6 @@
 package org.libraryshoponline.library.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.libraryshoponline.library.dto.Book;
 import org.libraryshoponline.library.dto.Library;
 
@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import com.fasterxml.jackson.*;
 
 @WebServlet(name = "books",urlPatterns = {"/books"})
 public class AfficheListLivre extends HttpServlet {
@@ -33,10 +31,10 @@ public class AfficheListLivre extends HttpServlet {
             setAmount(amount);
         }};
         (new Library()).addBookLibrary(book);
-        ObjectMapper objectMapper= new ObjectMapper();
+
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
-        objectMapper.writeValue(out,Library.books);
+
 
 
 

@@ -1,7 +1,8 @@
 $(document).ready(function(){
        $('input').last().on("click",function(){
             $.ajax({
-                url: "books",
+                type:"POST",
+                url: "rest/library/listbooks",
                 data: $('form').serialize(),
                 success: function(result) {
                     $('li').remove()

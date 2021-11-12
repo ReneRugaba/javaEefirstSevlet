@@ -7,31 +7,23 @@ import java.util.List;
 public class Library {
     public static List<Book> books=new ArrayList<>();
 
-    public Library(){
-
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
-
 
     public boolean addBookLibrary(Book book){
         books.add(book);
         return true;
     }
 
-    public boolean update(int id,Book book){
+    public Book update(int id,Book book){
         books.set(id, book);
-        return true;
+        return books.get(id);
     }
 
     public Book getBookInList(int id){
         return books.get(id);
+    }
+
+    public boolean removeBookInList(int id){
+        books.remove(id);
+        return true;
     }
 }
